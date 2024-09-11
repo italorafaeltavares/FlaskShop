@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecomerce.db'
@@ -13,6 +14,14 @@ class Product(db.Model):
     name = db.Column(db.String(120), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=True)
+
+@app.route('/api/products/add', methods=["POST"])
+def add_product():
+    data = request.json
+    product = Product(name=data["name"], price = float(data["price"]), description=data.get("description", ""))
+    db.session.add(product)
+    db.session.commit()
+    return "Product registered successfully"
 
 # Defini a rota raiz e a função que será executada ao requisitar
 @app.route('/')
