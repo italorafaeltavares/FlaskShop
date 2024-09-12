@@ -3,3 +3,5 @@ flask.exe shell
 >>> db.create_all()
 >>> db.session.commit()
 >>> exit()
+
+>>> db.drop_all() 
