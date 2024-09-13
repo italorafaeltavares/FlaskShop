@@ -6,7 +6,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "hz97YX4EC3g0xhTg4OG1"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecomerce.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecommerce.db'
 
 login_manager = LoginManager()
 db = SQLAlchemy(app)
@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=True)
+    cart = db.relationship('CartItem', backref='user', lazy=True)
 
 
 # Produto (id, name, price, description)
@@ -29,6 +30,12 @@ class Product(db.Model):
     name = db.Column(db.String(120), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=True)
+
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer,db.ForeignKey("product.id"), nullable=False)
 
 
 # Autenticação
@@ -131,6 +138,7 @@ def get_products():
 
     return jsonify(product_list)
 
+# Checkout
 
 # Define a rota raiz e a função que será executada ao requisitar
 @app.route('/')
