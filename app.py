@@ -184,7 +184,7 @@ def view_cart():
     return jsonify(cart_content)
 
 
-@application.route('/api/cart/checkout', methods=["POST"])
+@app.route('/api/cart/checkout', methods=["POST"])
 @login_required
 def checkout():
     user = User.query.get(int(current_user.id))
