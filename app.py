@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 
 app = Flask(__name__)
@@ -139,6 +139,32 @@ def get_products():
     return jsonify(product_list)
 
 # Checkout
+@app.route('/api/cart/add/<int:product_id>', methods=["POST"])
+@login_required
+def add_to_cat(product_id):
+    #User
+    user = User.query.get(int(current_user.id))
+    # Product
+    product = Product.query.get(product_id)
+
+    if user and product:
+        print(user)
+        print(product)
+        return jsonify({"message": "Item added to the cart successfully"})
+    return jsonify({"message": "Failed to add item to the cart"}), 400
+
+
+@app.route('/api/cat/remove/<int:product_id', methods=['DELETE'])
+@login_required
+def remove_from_cat(product_id):
+    # Product, User = item to cart
+    cart_item = CartItem.query.filter_by(user_id=current_user.id, product_id=product_id).first()
+    if  cart_item:
+        db.session.delete(cart_item)
+        db.session.commit()
+        return jsonify({"message": "Item removed from the cart successfully"})
+    return jsonify({"message": "Failed to remove item from the cart"}), 400
+
 
 # Define a rota raiz e a função que será executada ao requisitar
 @app.route('/')
