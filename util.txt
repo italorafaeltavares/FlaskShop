@@ -1,17 +1,18 @@
-flask.exe shell 
-DB
->>> db.create_all()
->>> db.session.commit()
->>> exit()
+flask.exe shell
 
->>> db.drop_all() 
+DB
+db.create_all()
+db.session.commit()
+exit()
+
+db.drop_all() 
 
 User
->>> user = User(username="admin", password="123456")
->>> user 
-<User (transient 2839996678560)>
+user = User(username="admin", password="123456")
+user 
 
->>> db.session.add(user)
->>> db.session.commit()
->>> user.id
-1
+db.session.add(user)
+db.session.commit()
+use.id
+
+# export ADMIN_PASSWORD='sua_senha'
