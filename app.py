@@ -142,22 +142,22 @@ def get_products():
 @app.route('/api/cart/add/<int:product_id>', methods=["POST"])
 @login_required
 def add_to_cat(product_id):
-    #User
+    
     user = User.query.get(int(current_user.id))
-    # Product
     product = Product.query.get(product_id)
 
     if user and product:
-        print(user)
-        print(product)
+        cart_item = CartItem(user_id=user.id, product_id=product_id)
+        db.session.add(cart_item)
+        db.session.commit()
         return jsonify({"message": "Item added to the cart successfully"})
     return jsonify({"message": "Failed to add item to the cart"}), 400
 
 
-@app.route('/api/cat/remove/<int:product_id', methods=['DELETE'])
+@app.route('/api/cart/remove/<int:product_id>', methods=["DELETE"])
 @login_required
-def remove_from_cat(product_id):
-    # Product, User = item to cart
+def remove_from_cart(product_id):
+
     cart_item = CartItem.query.filter_by(user_id=current_user.id, product_id=product_id).first()
     if  cart_item:
         db.session.delete(cart_item)
@@ -166,9 +166,28 @@ def remove_from_cat(product_id):
     return jsonify({"message": "Failed to remove item from the cart"}), 400
 
 
+@app.route('/api/cart', methods=["GET"])
+@login_required
+def view_cart():
+    user = User.query.get(int(current_user.id))
+    cart_items = user.cart
+    cart_content = []
+    for cart_item in cart_items:
+        product = Product.query.get(cart_item.product_id)
+        cart_content.append({
+                                "id": cart_item.id,
+                                "user_id": cart_item.user_id,
+                                "product_id": cart_item.product_id,
+                                "product_name": product.name,
+                                "product_price": product.price
+                            })
+    return jsonify(cart_content)
+
+
+# @app.route('',)
 # Define a rota raiz e a função que será executada ao requisitar
 @app.route('/')
-def hello_world():
+def health():
     return "Healthy"
 
 
