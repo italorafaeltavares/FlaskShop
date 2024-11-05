@@ -55,8 +55,18 @@
 								{
 									"name": "Add a new product",
 									"request": {
-										"method": "GET",
-										"header": []
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"TV LED2\",\r\n  \"price\": 5000,\r\n  \"description\": \"Test Description\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://127.0.0.1:5000/api/products/add"
 									},
 									"response": []
 								}
@@ -117,7 +127,8 @@
 							"name": "Get a list of products",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": "http://127.0.0.1:5000/api/products"
 							},
 							"response": []
 						}
