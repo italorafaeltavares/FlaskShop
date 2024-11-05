@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "2ef74c08-b687-48f6-902f-a0ac711d6a30",
+		"name": "E-commerce API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23660135"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1:5000/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "products",
+					"item": [
+						{
+							"name": "add",
+							"item": [
+								{
+									"name": "Add a new product",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "{product_id}",
+							"item": [
+								{
+									"name": "Get product details by ID",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "http://127.0.0.1:5000/api/products/1"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "update",
+							"item": [
+								{
+									"name": "Update a product by ID",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"description\": \"Test Description\",\r\n  \"name\": \"TV LED\",\r\n  \"price\": 2000.0\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://127.0.0.1:5000/api/products/update/2"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"item": [
+								{
+									"name": "Delete a product by ID",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "http://127.0.0.1:5000/api/products/delete/2"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get a list of products",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cart",
+					"item": [
+						{
+							"name": "add",
+							"item": [
+								{
+									"name": "Add item to the cart",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": "http://127.0.0.1:5000/api/cart/add/4"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "remove",
+							"item": [
+								{
+									"name": "Remove item from the cart",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "http://127.0.0.1:5000/api/cart/remove/4"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "checkout",
+							"item": [
+								{
+									"name": "Checkout and clear the cart",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "View the user's cart",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:5000/api/cart"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "api",
+			"item": []
+		},
+		{
+			"name": "healthy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:5000/login"
+			},
+			"response": []
+		}
+	]
+}
