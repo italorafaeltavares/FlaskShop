@@ -2,7 +2,6 @@
 
 venv:
 	@python3 -m venv .venv
-	@source .venv/bin/activate
 
 pip:
 	@pip install -r requirements.txt
@@ -12,5 +11,3 @@ dbcreate:
 
 up:
 	@python3 app.py
-
-full: venv pip dbcreate up
